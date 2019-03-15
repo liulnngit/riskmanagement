@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jesse.dpp.rcp.dao.NoticeDao">
+	<resultMap id="BaseResultMap" type="com.jesse.dpp.rcp.po.Notice">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="content" jdbcType="VARCHAR" property="content" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+		<result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jesse.dpp.rcp.po.Notice">
+		<result column="create_date" jdbcType="LONGVARCHAR" property="createDate" />
+		<result column="update_date" jdbcType="LONGVARCHAR" property="updateDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, title, content, status, creator_id, updater_id
+	</sql>
+	<sql id="Blob_Column_List">
+		create_date, update_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_sys_notice
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_sys_notice
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jesse.dpp.rcp.po.Notice">
+		insert into t_sys_notice (id, title, content,
+		status, creator_id, updater_id,
+		create_date, update_date)
+		values (#{id,jdbcType=INTEGER},
+		#{title,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR},
+		#{status,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER}, #{updaterId,jdbcType=INTEGER},
+		#{createDate,jdbcType=LONGVARCHAR},
+		#{updateDate,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jesse.dpp.rcp.po.Notice">
+		insert into t_sys_notice
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="creatorId != null">
+				creator_id,
+			</if>
+			<if test="updaterId != null">
+				updater_id,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				#{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				#{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jesse.dpp.rcp.po.Notice">
+		update t_sys_notice
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				creator_id = #{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				updater_id = #{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jesse.dpp.rcp.po.Notice">
+		update t_sys_notice
+		set title = #{title,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jesse.dpp.rcp.po.Notice">
+		update t_sys_notice
+		set title = #{title,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id =
+		#{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 
+    /***********************************************************************
+    * DON'T Modify the codes above unless you know what you are doing!!!  *
+    * Put your own sql beblow.                                            *
+    ***********************************************************************/
+   -->
+   
+   
+
+	<resultMap type="com.jesse.dpp.rcp.vo.NoticeVo" id="NoticeVoResultMap" extends="ResultMapWithBLOBs">
+		<association property="account" javaType="com.jesse.dpp.rcp.po.Account">
+			<result property="loginName" column="creator" />
+		</association>
+		<association property="upAccount" javaType="com.jesse.dpp.rcp.po.Account">
+			<result property="loginName" column="updater" />
+		</association>
+	</resultMap>
+
+	<select id="selectNoticeList" resultMap="NoticeVoResultMap">
+		SELECT
+			tsn.id,
+			tsn.title,
+			tsn.content,
+			tsn.`status`,
+			tsn.create_date,
+			tsn.creator_id,
+			tsn.updater_id,
+			tsn.update_date,
+			tsa.login_name AS creator,
+			upa.login_name AS updater
+			FROM t_sys_notice tsn
+		LEFT JOIN t_sys_account tsa
+			ON(tsn.creator_id = tsa.id)
+		LEFT JOIN t_sys_account upa
+			ON(tsn.updater_id = upa.id)
+		ORDER BY tsn.create_date DESC
+	</select>
+
+	<select id="selectNoticeVoByPrimaryKey" parameterType="java.lang.Integer" resultMap="NoticeVoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_sys_notice
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByNoticeIds" parameterType="java.lang.String">
+		DELETE FROM t_sys_notice WHERE id in
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<select id="checkTitle" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_sys_notice
+		where
+		<if test="id != null and id != ''">
+			id != #{id} and
+		</if>
+		title = #{title}
+	</select>
+	
+	<select id="selectByActive" resultMap="NoticeVoResultMap">
+		SELECT
+			tsn.id,
+			tsn.title,
+			tsn.content,
+			tsn.`status`,
+			tsn.create_date,
+			tsn.creator_id,
+			tsn.updater_id,
+			tsn.update_date,
+			tsa.login_name AS creator,
+			upa.login_name AS updater
+			FROM t_sys_notice tsn
+		LEFT JOIN t_sys_account tsa
+			ON(tsn.creator_id = tsa.id)
+		LEFT JOIN t_sys_account upa
+			ON(tsn.updater_id = upa.id)
+		WHERE tsn.status = 'A'	
+		ORDER BY tsn.create_date DESC
+	</select>
+
+</mapper>

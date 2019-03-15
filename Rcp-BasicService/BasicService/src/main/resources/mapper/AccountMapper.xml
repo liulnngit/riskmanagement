@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jesse.dpp.rcp.dao.AccountDao">
+	<resultMap id="BaseResultMap" type="com.jesse.dpp.rcp.po.Account">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="system_id" jdbcType="VARCHAR" property="systemId" />
+		<result column="login_name" jdbcType="VARCHAR" property="loginName" />
+		<result column="login_pwd" jdbcType="VARCHAR" property="loginPwd" />
+		<result column="account_type" jdbcType="CHAR" property="accountType" />
+		<result column="email_address" jdbcType="VARCHAR" property="emailAddress" />
+		<result column="last_login" jdbcType="TIMESTAMP" property="lastLogin" />
+		<result column="role_id" jdbcType="VARCHAR" property="roleId" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+		<result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jesse.dpp.rcp.po.Account">
+		<result column="create_date" jdbcType="LONGVARCHAR" property="createDate" />
+		<result column="update_date" jdbcType="LONGVARCHAR" property="updateDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, system_id, login_name, login_pwd, account_type, email_address, last_login, role_id,
+		status, creator_id, updater_id
+	</sql>
+	<sql id="Blob_Column_List">
+		create_date, update_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_sys_account
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.util.Map">
+		delete from t_sys_account
+		where id = #{id,jdbcType=INTEGER}
+		and system_id = #{systemId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.jesse.dpp.rcp.po.Account">
+		insert into t_sys_account (id, system_id, login_name,
+		login_pwd, account_type, email_address,
+		last_login, role_id, status,
+		creator_id, updater_id, create_date,
+		update_date)
+		values (#{id,jdbcType=INTEGER}, #{systemId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR},
+		#{loginPwd,jdbcType=VARCHAR}, #{accountType,jdbcType=CHAR}, #{emailAddress,jdbcType=VARCHAR},
+		#{lastLogin,jdbcType=TIMESTAMP}, #{roleId,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+		#{creatorId,jdbcType=INTEGER}, #{updaterId,jdbcType=INTEGER}, #{createDate,jdbcType=LONGVARCHAR},
+		#{updateDate,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jesse.dpp.rcp.po.Account" useGeneratedKeys="true" keyProperty="id">
+		insert into t_sys_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="systemId != null">
+				system_id,
+			</if>
+			<if test="loginName != null">
+				login_name,
+			</if>
+			<if test="loginPwd != null">
+				login_pwd,
+			</if>
+			<if test="accountType != null">
+				account_type,
+			</if>
+			<if test="emailAddress != null">
+				email_address,
+			</if>
+			<if test="lastLogin != null">
+				last_login,
+			</if>
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="creatorId != null">
+				creator_id,
+			</if>
+			<if test="updaterId != null">
+				updater_id,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="systemId != null">
+				#{systemId,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginPwd != null">
+				#{loginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountType != null">
+				#{accountType,jdbcType=CHAR},
+			</if>
+			<if test="emailAddress != null">
+				#{emailAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="lastLogin != null">
+				#{lastLogin,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				#{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				#{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jesse.dpp.rcp.po.Account">
+		update t_sys_account
+		<set>
+			<if test="systemId != null and systemId !=''">
+				system_id = #{systemId,jdbcType=VARCHAR},
+			</if>
+			<if test="loginPwd != null and loginPwd !=''">
+				login_pwd = #{loginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="accountType != null and accountType !=''">
+				account_type = #{accountType,jdbcType=CHAR},
+			</if>
+			<if test="emailAddress != null and emailAddress !=''">
+				email_address = #{emailAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="lastLogin != null and lastLogin !=''">
+				last_login = #{lastLogin,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roleId != null and roleId !=''">
+				role_id = #{roleId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null and status !=''">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null and creatorId !=''">
+				creator_id = #{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null and updaterId !=''">
+				updater_id = #{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null and createDate !=''">
+				create_date = #{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null and updateDate !=''">
+				update_date = #{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+		and system_id = #{systemId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jesse.dpp.rcp.po.Account">
+		update t_sys_account
+		set system_id = #{systemId,jdbcType=VARCHAR},
+		login_name = #{loginName,jdbcType=VARCHAR},
+		login_pwd =
+		#{loginPwd,jdbcType=VARCHAR},
+		account_type = #{accountType,jdbcType=CHAR},
+		email_address = #{emailAddress,jdbcType=VARCHAR},
+		last_login = #{lastLogin,jdbcType=TIMESTAMP},
+		role_id =
+		#{roleId,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jesse.dpp.rcp.po.Account">
+		update t_sys_account
+		set system_id = #{systemId,jdbcType=VARCHAR},
+		login_name = #{loginName,jdbcType=VARCHAR},
+		login_pwd =
+		#{loginPwd,jdbcType=VARCHAR},
+		account_type = #{accountType,jdbcType=CHAR},
+		email_address = #{emailAddress,jdbcType=VARCHAR},
+		last_login = #{lastLogin,jdbcType=TIMESTAMP},
+		role_id =
+		#{roleId,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+		and system_id = #{systemId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 
+    /***********************************************************************
+    * DON'T Modify the codes above unless you know what you are doing!!!  *
+    * Put your own sql beblow.                                            *
+    ***********************************************************************/
+   -->
+   
+   
+   
+
+	<select id="selectAccountByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_account
+		where UPPER(login_name) = UPPER(#{loginName}) and (status = 'A' or status = 'S')
+	</select>
+
+	<select id="selectAccountByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_account
+		where email_address = #{email} and (status = 'A' or status = 'S')
+	</select>
+
+	<select id="selectAccountVoByLoginName" parameterType="java.lang.String" resultMap="AccountAndRoleRM">
+		select
+			ta.id,
+			ta.system_id,
+			ta.login_name,
+			ta.account_type,
+			ta.email_address,
+			ta.last_login,
+			ta.role_id,
+			ta.status,
+			ta.creator_id,
+			ta.create_date,
+			ta.updater_id,
+			ta.update_date,
+			tst.system_name
+		from t_sys_account ta LEFT JOIN t_system_type tst
+		ON(ta.system_id = tst.id)
+		where ta.login_name = #{loginName} and (ta.status = 'A' or ta.status = 'S') and tst.status = 'A'
+	</select>
+
+	<resultMap type="com.jesse.dpp.rcp.vo.AccountVo" id="AccountAndRoleRM" extends="ResultMapWithBLOBs">
+		<association property="systemType" javaType="com.jesse.dpp.rcp.po.SystemType">
+			<result property="systemName" column="system_name" />
+		</association>
+		<association property="account" javaType="com.jesse.dpp.rcp.po.Account">
+      <result property="loginName" column="creator" />
+    </association>
+	</resultMap>
+
+	<select id="selectAccountListByPagination" resultMap="AccountAndRoleRM" parameterType="com.jesse.dpp.rcp.po.Account">
+		select
+			ta.id,
+			ta.system_id,
+			ta.login_name,
+			ta.email_address,
+			ta.last_login,
+			ta.role_id,
+			ta.status,
+			ta.creator_id,
+			ta.create_date,
+			ta.updater_id,
+			ta.update_date,
+			tst.system_name,
+	    ta2.login_name as creator
+		from t_sys_account ta LEFT JOIN
+		  t_system_type tst
+		ON(ta.system_id = tst.id)
+		LEFT JOIN t_sys_account ta2 ON (ta.creator_id = ta2.id)
+		where (ta2.status = 'A' or ta2.status = 'S') and tst.status = 'A'
+		<if test="systemId != null and systemId !=''">
+			and ta.system_id = #{systemId}
+		</if>
+		<if test="loginName != null and loginName != ''">
+			and ta.login_name = #{loginName}
+		</if>
+		<if test="emailAddress != null and emailAddress != ''">
+			and ta.email_address = #{emailAddress}
+		</if>
+	</select>
+	
+	<select id="checkLoginNameAndEmail" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_account
+    where 
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    (login_name = #{loginName} or email_address = #{emailAddress})
+  </select>
+  
+  <select id="checkLoginName" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_account
+    where 
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    login_name = #{loginName}
+  </select>
+  
+  <select id="checkEmailAddress" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_account
+    where 
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    email_address = #{emailAddress}
+  </select>
+  
+  <select id="selectSysAdmin" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sys_account
+    where system_id = #{systemId} and status = 'S'
+  </select>
+  
+</mapper>

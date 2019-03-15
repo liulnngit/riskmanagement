@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jesse.dpp.rcp.dao.NoticeHistoryDao">
+	<resultMap id="BaseResultMap" type="com.jesse.dpp.rcp.po.NoticeHistory">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="notice_id" jdbcType="INTEGER" property="noticeId" />
+		<result column="account_id" jdbcType="INTEGER" property="accountId" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+		<result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jesse.dpp.rcp.po.NoticeHistory">
+		<result column="create_date" jdbcType="LONGVARCHAR" property="createDate" />
+		<result column="update_date" jdbcType="LONGVARCHAR" property="updateDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, notice_id, account_id, status, creator_id, updater_id
+	</sql>
+	<sql id="Blob_Column_List">
+		create_date, update_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_sys_notice_history
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_sys_notice_history
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jesse.dpp.rcp.po.NoticeHistory">
+		insert into t_sys_notice_history (id, notice_id, account_id,
+		status, creator_id, updater_id,
+		create_date, update_date)
+		values (#{id,jdbcType=INTEGER}, #{noticeId,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER},
+		#{status,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER}, #{updaterId,jdbcType=INTEGER},
+		#{createDate,jdbcType=LONGVARCHAR}, #{updateDate,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jesse.dpp.rcp.po.NoticeHistory">
+		insert into t_sys_notice_history
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="noticeId != null">
+				notice_id,
+			</if>
+			<if test="accountId != null">
+				account_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="creatorId != null">
+				creator_id,
+			</if>
+			<if test="updaterId != null">
+				updater_id,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="noticeId != null">
+				#{noticeId,jdbcType=INTEGER},
+			</if>
+			<if test="accountId != null">
+				#{accountId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				#{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				#{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jesse.dpp.rcp.po.NoticeHistory">
+		update t_sys_notice_history
+		<set>
+			<if test="noticeId != null">
+				notice_id = #{noticeId,jdbcType=INTEGER},
+			</if>
+			<if test="accountId != null">
+				account_id = #{accountId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				creator_id = #{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				updater_id = #{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jesse.dpp.rcp.po.NoticeHistory">
+		update t_sys_notice_history
+		set notice_id = #{noticeId,jdbcType=INTEGER},
+		account_id = #{accountId,jdbcType=INTEGER},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jesse.dpp.rcp.po.NoticeHistory">
+		update t_sys_notice_history
+		set notice_id = #{noticeId,jdbcType=INTEGER},
+		account_id = #{accountId,jdbcType=INTEGER},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 
+    /***********************************************************************
+    * DON'T Modify the codes above unless you know what you are doing!!!  *
+    * Put your own sql beblow.                                            *
+    ***********************************************************************/
+   -->
+   
+   
+</mapper>

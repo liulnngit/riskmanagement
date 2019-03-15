@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  http://code.alibabatech.com/schema/dubbo
+  http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="web_provider" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="zookeeper://localhost:2181" file="${catalina.home}/dubbo-registry/web-dubbo-registry.properties" />
+
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<!-- <dubbo:protocol name="dubbo" port="20880" /> -->
+
+	<!-- 具体的实现bean -->
+	<bean id="iFilterChainDefinitonsService" class="com.jesse.dpp.rcp.shiro.filter.FilterChainDefinitonsServiceImpl" />
+
+	<!-- 声明需要引用的服务接口 -->
+	<dubbo:reference interface="com.jesse.dpp.rcp.service.IRoleService" id="iRoleService" timeout="3000" check="false" version="1.0.0" />
+	<dubbo:reference interface="com.jesse.dpp.rcp.service.IAccountService" id="iAccountService" timeout="3000" check="false" version="1.0.0" />
+	<!-- <dubbo:reference interface="com.jesse.dpp.rcp.service.IActiveAccountService" id="iActiveAccountService" timeout="3000" check="false" version="1.0.0" /> -->
+	<dubbo:reference interface="com.jesse.dpp.rcp.service.IMenuService" id="iMenuService" timeout="3000" check="false" version="1.0.0" />
+	<dubbo:reference interface="com.jesse.dpp.rcp.service.IRoleMenuService" id="iRoleMenuService" timeout="3000" check="false" version="1.0.0" />
+	<dubbo:reference interface="com.jesse.dpp.rcp.service.IAccountRoleService" id="iAccountRoleService" timeout="3000" check="false" version="1.0.0" />
+	<dubbo:reference interface="com.jesse.dpp.rcp.service.ISystemTypeService" id="iSystemTypeService" timeout="3000" check="false" version="1.0.0" />
+	<dubbo:reference interface="com.jesse.dpp.rcp.service.INoticeService" id="iNoticeService" timeout="3000" check="false" version="1.0.0" />
+	<dubbo:reference interface="com.jesse.dpp.rcp.service.IResetPasswordService" id="iResetPasswordService" timeout="3000" check="false" version="1.0.0" />
+
+
+</beans>

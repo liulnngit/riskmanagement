@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jesse.dpp.rcp.dao.SystemTypeDao">
+  <resultMap id="BaseResultMap" type="com.jesse.dpp.rcp.po.SystemType">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="system_name" jdbcType="VARCHAR" property="systemName" />
+    <result column="system_code" jdbcType="VARCHAR" property="systemCode" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="company_address" jdbcType="VARCHAR" property="companyAddress" />
+    <result column="company_domain" jdbcType="VARCHAR" property="companyDomain" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jesse.dpp.rcp.po.SystemType">
+    <result column="create_date" jdbcType="LONGVARCHAR" property="createDate" />
+    <result column="update_date" jdbcType="LONGVARCHAR" property="updateDate" />
+    <result column="logo_img" jdbcType="LONGVARBINARY" property="logoImg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, token, system_name, system_code, ip_address, company_address, company_domain, 
+    contacts, phone_number, email, status, creator_id, updater_id
+  </sql>
+  <sql id="Blob_Column_List">
+    create_date, update_date, logo_img
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_system_type
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jesse.dpp.rcp.po.SystemType">
+    insert into t_system_type (id, token, system_name, 
+      system_code, ip_address, company_address, 
+      company_domain, contacts, phone_number, 
+      email, status, creator_id, 
+      updater_id, create_date, update_date, 
+      logo_img)
+    values (#{id,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{systemName,jdbcType=VARCHAR}, 
+      #{systemCode,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, 
+      #{companyDomain,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER}, 
+      #{updaterId,jdbcType=INTEGER}, #{createDate,jdbcType=LONGVARCHAR}, #{updateDate,jdbcType=LONGVARCHAR}, 
+      #{logoImg,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jesse.dpp.rcp.po.SystemType">
+    insert into t_system_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="systemName != null">
+        system_name,
+      </if>
+      <if test="systemCode != null">
+        system_code,
+      </if>
+      <if test="ipAddress != null">
+        ip_address,
+      </if>
+      <if test="companyAddress != null">
+        company_address,
+      </if>
+      <if test="companyDomain != null">
+        company_domain,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="updaterId != null">
+        updater_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="logoImg != null">
+        logo_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="systemName != null">
+        #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCode != null">
+        #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null">
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyDomain != null">
+        #{companyDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logoImg != null">
+        #{logoImg,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jesse.dpp.rcp.po.SystemType">
+    update t_system_type
+    <set>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="systemName != null">
+        system_name = #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCode != null">
+        system_code = #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null">
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyDomain != null">
+        company_domain = #{companyDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="updaterId != null">
+        updater_id = #{updaterId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logoImg != null">
+        logo_img = #{logoImg},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jesse.dpp.rcp.po.SystemType">
+    update t_system_type
+    set token = #{token,jdbcType=VARCHAR},
+      system_name = #{systemName,jdbcType=VARCHAR},
+      system_code = #{systemCode,jdbcType=VARCHAR},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_domain = #{companyDomain,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      updater_id = #{updaterId,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=LONGVARCHAR},
+      update_date = #{updateDate,jdbcType=LONGVARCHAR},
+      logo_img = #{logoImg,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jesse.dpp.rcp.po.SystemType">
+    update t_system_type
+    set token = #{token,jdbcType=VARCHAR},
+      system_name = #{systemName,jdbcType=VARCHAR},
+      system_code = #{systemCode,jdbcType=VARCHAR},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_domain = #{companyDomain,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      updater_id = #{updaterId,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=LONGVARCHAR},
+      update_date = #{updateDate,jdbcType=LONGVARCHAR},
+      logo_img = #{logoImg,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+
+  <!-- 
+    /***********************************************************************
+    * DON'T Modify the codes above unless you know what you are doing!!!  *
+    * Put your own sql beblow.                                            *
+    ***********************************************************************/
+   -->
+   
+   
+   <resultMap type="com.jesse.dpp.rcp.vo.SystemTypeVo" id="systemTypeVoMap" extends="ResultMapWithBLOBs">
+  </resultMap>
+
+  <select id="selectList" resultMap="systemTypeVoMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+  </select>
+
+  <select id="selectActiveList" parameterType="java.lang.String" resultMap="systemTypeVoMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where status = #{status,jdbcType=CHAR}
+  </select>
+
+  <select id="selectByToken" parameterType="java.lang.String" resultMap="systemTypeVoMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where token = #{token,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSystemTypeVoById" parameterType="java.lang.String" resultMap="systemTypeVoMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectListByPagination" resultMap="systemTypeVoMap">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    order by create_date desc
+  </select>
+  
+  <select id="checkSystemName" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where 
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    system_name = #{systemName,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="checkSystemCodeValid" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where 
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    system_code = #{systemCode,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="checkPhoneNumberValid" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where 
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    phone_number = #{phoneNumber,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="checkCompanyDomainValid" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where 
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    company_domain = #{companyDomain,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="checkEmailValid" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_system_type
+    where 
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    email = #{email,jdbcType=VARCHAR}
+  </select>
+     <select id="getAllAdmin" resultMap="ResultMapWithBLOBs">
+	    select
+	    <include refid="Base_Column_List" />
+	    ,
+	    <include refid="Blob_Column_List" />
+	    from t_system_type 
+	    where status = 'A'
+	  </select>
+</mapper>

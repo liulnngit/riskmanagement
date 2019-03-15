@@ -1,0 +1,135 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 初始化加载 Spring 相关配置 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:applicationContext.xml
+		</param-value>
+	</context-param>
+	
+ 	 <!-- Spring 监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>com.jesse.dpp.rcp.listener.OnlineListener</listener-class>
+	</listener>
+	
+
+	
+ 	 <!-- 配置过滤器，同时把所有的请求都转为utf-8编码 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<filter>
+    <filter-name>ParameterFilter</filter-name>
+    <filter-class>com.jesse.dpp.rcp.filter.ParameterFilter</filter-class>
+  </filter>
+  
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+    <filter-name>ParameterFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+	
+<!-- 
+	Comet4J配置， 消息推送	
+	<listener>
+		<description>Comet4J容器侦听</description>
+		<listener-class>org.comet4j.core.CometAppListener</listener-class>
+	</listener>
+	<servlet>
+		<description>Comet连接</description>
+		<display-name>CometServlet</display-name>
+		<servlet-name>CometServlet</servlet-name>
+		<servlet-class>com.jesse.dpp.rcp.message.initcomet.CometServletMain</servlet-class>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CometServlet</servlet-name>
+		<url-pattern>/conn</url-pattern>
+	</servlet-mapping>
+	
+	消息推送应用配置
+	<listener>
+		<description>MessagePush</description>
+		<listener-class>com.jesse.dpp.rcp.message.pushweb.Push</listener-class>
+	</listener> -->
+	
+	<!-- 配置shiro权限过滤器 ，会在DispatcherServlet拦截前进行拦截-->
+	<filter>  
+		<filter-name>shiroFilter</filter-name>  
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+		<init-param>  
+		<param-name>targetFilterLifecycle</param-name>  
+		<param-value>true</param-value>  
+		</init-param>  
+	</filter>  
+	<filter-mapping>  
+		<filter-name>shiroFilter</filter-name>  
+		<url-pattern>/*</url-pattern>  
+	</filter-mapping>
+
+
+  <!-- SpringMVC 核心容器 -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:mvc-dispatcher.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+	
+	<!-- 错误跳转页面 -->
+	<error-page>
+		<!-- 路径不正确 -->
+		<error-code>404</error-code>
+		<location>/WEB-INF/pages/404.jsp</location>
+	</error-page>
+	<error-page>
+		<!-- 没有访问权限，访问被禁止 -->
+		<error-code>403</error-code>
+		<location>/WEB-INF/pages/403.jsp</location>
+	</error-page>
+	<error-page>
+		<!-- 错误的请求 -->
+		<error-code>405</error-code>
+		<location>/WEB-INF/pages/405.jsp</location>
+	</error-page>
+	<error-page>
+		<!-- 内部错误 -->
+	<error-code>500</error-code>
+		<location>/WEB-INF/pages/500.jsp</location>
+	</error-page>
+</web-app>

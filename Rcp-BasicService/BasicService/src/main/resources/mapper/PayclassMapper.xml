@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jesse.dpp.rcp.dao.PayclassDao">
+	<resultMap id="BaseResultMap" type="com.jesse.dpp.rcp.po.Payclass">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="system_id" jdbcType="VARCHAR" property="systemId" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="name_en" jdbcType="VARCHAR" property="nameEn" />
+		<result column="access_type" jdbcType="VARCHAR" property="accessType" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+		<result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jesse.dpp.rcp.po.Payclass">
+		<result column="create_date" jdbcType="LONGVARCHAR" property="createDate" />
+		<result column="update_date" jdbcType="LONGVARCHAR" property="updateDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, system_id, code, name, name_en, access_type, status, creator_id, updater_id
+	</sql>
+	<sql id="Blob_Column_List">
+		create_date, update_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_sys_payclass
+		where id = #{id,jdbcType=INTEGER} and status != 'D'
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_sys_payclass
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jesse.dpp.rcp.po.Payclass">
+		insert into t_sys_payclass (id, system_id, code,
+		name, name_en, access_type,
+		status, creator_id, updater_id,
+		create_date, update_date)
+		values
+		(#{id,jdbcType=INTEGER}, #{systemId,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR}, #{accessType,jdbcType=VARCHAR},
+		#{status,jdbcType=CHAR},
+		#{creatorId,jdbcType=INTEGER}, #{updaterId,jdbcType=INTEGER},
+		#{createDate,jdbcType=LONGVARCHAR}, #{updateDate,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jesse.dpp.rcp.po.Payclass">
+		insert into t_sys_payclass
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="systemId != null">
+				system_id,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="nameEn != null">
+				name_en,
+			</if>
+			<if test="accessType != null">
+				access_type,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="creatorId != null">
+				creator_id,
+			</if>
+			<if test="updaterId != null">
+				updater_id,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="systemId != null">
+				#{systemId,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="nameEn != null">
+				#{nameEn,jdbcType=VARCHAR},
+			</if>
+			<if test="accessType != null">
+				#{accessType,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				#{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				#{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jesse.dpp.rcp.po.Payclass">
+		update t_sys_payclass
+		<set>
+			<if test="systemId != null">
+				system_id = #{systemId,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="nameEn != null">
+				name_en = #{nameEn,jdbcType=VARCHAR},
+			</if>
+			<if test="accessType != null">
+				access_type = #{accessType,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				creator_id = #{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				updater_id = #{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+		and system_id = #{systemId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jesse.dpp.rcp.po.Payclass">
+		update t_sys_payclass
+		set system_id = #{systemId,jdbcType=VARCHAR},
+		code = #{code,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		name_en = #{nameEn,jdbcType=VARCHAR},
+		access_type = #{accessType,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id =
+		#{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jesse.dpp.rcp.po.Payclass">
+		update t_sys_payclass
+		set system_id = #{systemId,jdbcType=VARCHAR},
+		code = #{code,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		name_en =
+		#{nameEn,jdbcType=VARCHAR},
+		access_type = #{accessType,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id
+		= #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+	<!-- 
+    /***********************************************************************
+    * DON'T Modify the codes above unless you know what you are doing!!!  *
+    * Put your own sql beblow.                                            *
+    ***********************************************************************/
+   -->
+   
+   
+
+  <select id="selectPayClassList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_payclass
+    where (status = 'A' or status = 'S')
+    <if test="systemId != null and systemId != ''">
+    	and system_id = #{systemId}
+    </if>
+  </select>
+  
+  <resultMap type="com.jesse.dpp.rcp.vo.PayclassVo" id="PayclassVoMap" extends="ResultMapWithBLOBs">
+  	<association property="account" javaType="com.jesse.dpp.rcp.po.Account">
+  		<result property="loginName" column="login_name"/>
+  	</association>
+  	<association property="systemType" javaType="com.jesse.dpp.rcp.po.SystemType">
+  		<result property="systemName" column="system_name"/>
+  	</association>
+  </resultMap>
+
+	<select id="selectPayclassByPage" parameterType="com.jesse.dpp.rcp.po.Payclass" resultMap="PayclassVoMap">
+		SELECT
+			tsp.id,
+			tsp.access_type,
+			tsp.`code`,
+			tsp.create_date,
+			tsp.creator_id,
+			tsp.`name`,
+			tsp.name_en,
+			tsp.`status`,
+			tsp.system_id,
+			tsp.updater_id,
+			tsp.update_date,
+			tsa.login_name,
+			tst.system_name
+		FROM t_sys_payclass tsp
+			LEFT JOIN t_sys_account tsa
+			ON(tsp.creator_id = tsa.id)
+			LEFT JOIN t_system_type tst
+			ON(tsp.system_id = tst.id)
+		WHERE (tsp.status = 'A' or tsp.status = 'S')
+			<if test="name != null and name != ''">
+				and tsp.name like "%"#{name}"%"
+			</if>
+			<if test="code != null and code != ''">
+				and tsp.code like "%"#{code}"%"
+			</if>
+			<if test="systemId != null and systemId != ''">
+				and tsp.system_id = #{systemId}
+			</if>
+		order by tsp.create_date desc		
+	</select>
+	
+	<select id="checkCode" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+		select
+			<include refid="Base_Column_List"/>
+			<include refid="Blob_Column_List"/>
+		from t_sys_payclass
+		where
+		<if test="id != null and id != ''">
+			id != #{id} and
+		</if>
+		<if test="systemId != null and systemId != ''">
+			system_id = #{systemId} and
+		</if>
+		code = #{code}	
+		and (status = 'A' or status = 'S')
+	</select>
+	
+	<select id="checkName" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+		select
+			<include refid="Base_Column_List"/>
+			<include refid="Blob_Column_List"/>
+		from t_sys_payclass
+		where
+		<if test="id != null and id != ''">
+			id != #{id} and
+		</if>
+		<if test="systemId != null and systemId != ''">
+			system_id = #{systemId} and
+		</if>
+		name = #{name}	
+		and (status = 'A' or status = 'S')
+	</select>
+	
+	<select id="checkNameEn" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+		select
+			<include refid="Base_Column_List"/>
+			<include refid="Blob_Column_List"/>
+		from t_sys_payclass
+		where
+		<if test="id != null and id != ''">
+			id != #{id} and
+		</if>
+		<if test="systemId != null and systemId != ''">
+			system_id = #{systemId} and
+		</if>
+		name_en = #{nameEn}	
+		and (status = 'A' or status = 'S')
+	</select>
+	
+	<select id="selectPayclassByName" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sys_payclass
+    where system_id = #{systemId} and name = #{payclassName} and (status = 'A' or status = 'S')
+  </select>
+  
+  <select id="selectPayclassByCode" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sys_payclass
+    where system_id = #{systemId} and code = #{code} and (status = 'A' or status = 'S')
+  </select>
+  
+  <select id="selectDefaultPayclass" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sys_payclass
+    where status = #{status,jdbcType=CHAR} and 
+      system_id = #{systemId,jdbcType=VARCHAR}
+  </select>
+</mapper>

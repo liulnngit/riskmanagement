@@ -1,0 +1,10 @@
+商&nbsp;&nbsp;家&nbsp;&nbsp;号：,merchantId,请输入商家号
+用户名称：,accountName,请输入用户名称
+电话号码：,telphone,请输入电话号码
+证件号码：,idCardNo,请输入证件号码
+银行号码：,blankCardNo,请输入银行号码
+设备标识：,fingerId,请输入设备标识
+IP&nbsp;&nbsp;&nbsp;&nbsp;地址：,IPAddress,请输入IP地 址
+邮箱地址：,email,请输入邮箱地址
+商家域名：,url,请输入商家域名
+QQ：,qq,请输入qq

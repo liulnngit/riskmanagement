@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jesse.dpp.rcp.dao.RoleDao">
+	<resultMap id="BaseResultMap" type="com.jesse.dpp.rcp.po.Role">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="system_id" jdbcType="VARCHAR" property="systemId" />
+		<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+		<result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jesse.dpp.rcp.po.Role">
+		<result column="create_date" jdbcType="LONGVARCHAR" property="createDate" />
+		<result column="update_date" jdbcType="LONGVARCHAR" property="updateDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, system_id, role_name, status, creator_id, updater_id
+	</sql>
+	<sql id="Blob_Column_List">
+		create_date, update_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_sys_role
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.util.Map">
+		delete from t_sys_role
+		where id = #{id,jdbcType=INTEGER}
+		and system_id = #{systemId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.jesse.dpp.rcp.po.Role">
+		insert into t_sys_role (id, system_id, role_name,
+		status, creator_id, updater_id,
+		create_date, update_date)
+		values (#{id,jdbcType=INTEGER}, #{systemId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR},
+		#{status,jdbcType=CHAR}, #{creatorId,jdbcType=INTEGER}, #{updaterId,jdbcType=INTEGER},
+		#{createDate,jdbcType=LONGVARCHAR}, #{updateDate,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jesse.dpp.rcp.po.Role" useGeneratedKeys="true" keyProperty="id">
+		insert into t_sys_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="systemId != null">
+				system_id,
+			</if>
+			<if test="roleName != null">
+				role_name,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="creatorId != null">
+				creator_id,
+			</if>
+			<if test="updaterId != null">
+				updater_id,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="systemId != null">
+				#{systemId,jdbcType=VARCHAR},
+			</if>
+			<if test="roleName != null">
+				#{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				#{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				#{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jesse.dpp.rcp.po.Role">
+		update t_sys_role
+		<set>
+			<if test="systemId != null">
+				system_id = #{systemId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				creator_id = #{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				updater_id = #{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+		and system_id = #{systemId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jesse.dpp.rcp.po.Role">
+		update t_sys_role
+		set system_id = #{systemId,jdbcType=VARCHAR},
+		role_name = #{roleName,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jesse.dpp.rcp.po.Role">
+		update t_sys_role
+		set system_id = #{systemId,jdbcType=VARCHAR},
+		role_name = #{roleName,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id = #{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 
+    /***********************************************************************
+    * DON'T Modify the codes above unless you know what you are doing!!!  *
+    * Put your own sql beblow.                                            *
+    ***********************************************************************/
+   -->
+   
+	<select id="selectRoleListBySystemId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_role
+		where system_id = #{systemId} and (status = 'A' or status = 'S')
+	</select>
+
+	<select id="selectRoleListByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_role
+		where (status = 'A' or status = 'S') and id in
+		<foreach item="item" collection="list" separator="," open="(" close=")" index="">
+			#{item}
+		</foreach>
+	</select>
+
+	<resultMap type="com.jesse.dpp.rcp.vo.RoleVo" id="RoleVoMap" extends="ResultMapWithBLOBs">
+		<association property="account" javaType="com.jesse.dpp.rcp.po.Account">
+			<result property="loginName" column="login_name" />
+		</association>
+		<association property="systemType" javaType="com.jesse.dpp.rcp.po.SystemType">
+			<result property="systemName" column="system_name" />
+		</association>
+		<association property="updateAccount" javaType="com.jesse.dpp.rcp.po.Account">
+			<result property="loginName" column="updater"/>
+		</association>
+	</resultMap>
+
+	<select id="selectRoleListByPagination" resultMap="RoleVoMap" parameterType="java.util.Map">
+		select
+			tr.id,
+			tr.system_id,
+			tr.role_name,
+			tr.status,
+			tr.creator_id,
+			tr.create_date,
+			tr.updater_id,
+			tr.update_date,
+			ta.login_name,
+			tst.system_name,
+			upta.login_name as updater
+		FROM t_sys_role tr 
+		LEFT JOIN t_sys_account ta
+		ON(tr.creator_id = ta.id)
+		LEFT JOIN t_system_type tst
+		ON(tr.system_id = tst.id)
+		LEFT JOIN t_sys_account upta
+		ON(tr.updater_id = upta.id)
+		where (tr.status = 'A' or tr.status = 'S') and tst.status = 'A'
+		<if test="systemId != null and systemId != ''">
+			and tr.system_id = #{systemId}
+		</if>
+	</select>
+	
+	<select id="checkRoleName" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sys_role
+    where (status = 'A' or status = 'S') and
+    <if test="id != null and id !=''">
+      id != #{id} and
+    </if>
+    <if test="systemId != null and systemId != ''">
+    	system_id = #{systemId} and
+    </if>
+    role_name = #{roleName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAdministrator" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_role
+    where system_id = #{systemId} and status = 'S' and role_name = 'Administrator'
+  </select>
+  
+  <select id="selectRoleByName" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_role
+    where system_id = #{systemId} and status = 'S' and role_name = #{roleName}
+  </select>
+  
+</mapper>

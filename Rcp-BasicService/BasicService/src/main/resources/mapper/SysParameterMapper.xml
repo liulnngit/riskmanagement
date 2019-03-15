@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jesse.dpp.rcp.dao.SysParameterDao">
+	<resultMap id="BaseResultMap" type="com.jesse.dpp.rcp.po.SysParameter">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="system_id" jdbcType="VARCHAR" property="systemId" />
+		<result column="parameter_code" jdbcType="VARCHAR" property="parameterCode" />
+		<result column="parameter_name" jdbcType="VARCHAR" property="parameterName" />
+		<result column="parameter_type" jdbcType="CHAR" property="parameterType" />
+		<result column="parameter_value" jdbcType="VARCHAR" property="parameterValue" />
+		<result column="parameter_default_value" jdbcType="VARCHAR" property="parameterDefaultValue" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+		<result column="updater_id" jdbcType="INTEGER" property="updaterId" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jesse.dpp.rcp.po.SysParameter">
+		<result column="create_date" jdbcType="LONGVARCHAR" property="createDate" />
+		<result column="update_date" jdbcType="LONGVARCHAR" property="updateDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, system_id, parameter_code, parameter_name, parameter_type, parameter_value, parameter_default_value,
+		description, status, creator_id, updater_id
+	</sql>
+	<sql id="Blob_Column_List">
+		create_date, update_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_sys_parameter
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_sys_parameter
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jesse.dpp.rcp.po.SysParameter">
+		insert into t_sys_parameter (id, system_id, parameter_code,
+		parameter_name, parameter_type, parameter_value,
+		parameter_default_value, description, status,
+		creator_id, updater_id, create_date,
+		update_date)
+		values (#{id,jdbcType=INTEGER}, #{systemId,jdbcType=VARCHAR}, #{parameterCode,jdbcType=VARCHAR},
+		#{parameterName,jdbcType=VARCHAR},
+		#{parameterType,jdbcType=CHAR}, #{parameterValue,jdbcType=VARCHAR},
+		#{parameterDefaultValue,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+		#{creatorId,jdbcType=INTEGER},
+		#{updaterId,jdbcType=INTEGER}, #{createDate,jdbcType=LONGVARCHAR},
+		#{updateDate,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jesse.dpp.rcp.po.SysParameter">
+		insert into t_sys_parameter
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="systemId != null">
+				system_id,
+			</if>
+			<if test="parameterCode != null">
+				parameter_code,
+			</if>
+			<if test="parameterName != null">
+				parameter_name,
+			</if>
+			<if test="parameterType != null">
+				parameter_type,
+			</if>
+			<if test="parameterValue != null">
+				parameter_value,
+			</if>
+			<if test="parameterDefaultValue != null">
+				parameter_default_value,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="creatorId != null">
+				creator_id,
+			</if>
+			<if test="updaterId != null">
+				updater_id,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="systemId != null">
+				#{systemId,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterCode != null">
+				#{parameterCode,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterName != null">
+				#{parameterName,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterType != null">
+				#{parameterType,jdbcType=CHAR},
+			</if>
+			<if test="parameterValue != null">
+				#{parameterValue,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterDefaultValue != null">
+				#{parameterDefaultValue,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				#{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				#{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jesse.dpp.rcp.po.SysParameter">
+		update t_sys_parameter
+		<set>
+			<if test="systemId != null">
+				system_id = #{systemId,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterCode != null">
+				parameter_code = #{parameterCode,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterName != null">
+				parameter_name = #{parameterName,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterType != null">
+				parameter_type = #{parameterType,jdbcType=CHAR},
+			</if>
+			<if test="parameterValue != null">
+				parameter_value = #{parameterValue,jdbcType=VARCHAR},
+			</if>
+			<if test="parameterDefaultValue != null">
+				parameter_default_value = #{parameterDefaultValue,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="creatorId != null">
+				creator_id = #{creatorId,jdbcType=INTEGER},
+			</if>
+			<if test="updaterId != null">
+				updater_id = #{updaterId,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jesse.dpp.rcp.po.SysParameter">
+		update t_sys_parameter
+		set system_id = #{systemId,jdbcType=VARCHAR},
+		parameter_code = #{parameterCode,jdbcType=VARCHAR},
+		parameter_name =
+		#{parameterName,jdbcType=VARCHAR},
+		parameter_type = #{parameterType,jdbcType=CHAR},
+		parameter_value = #{parameterValue,jdbcType=VARCHAR},
+		parameter_default_value =
+		#{parameterDefaultValue,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id =
+		#{updaterId,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=LONGVARCHAR},
+		update_date = #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jesse.dpp.rcp.po.SysParameter">
+		update t_sys_parameter
+		set system_id = #{systemId,jdbcType=VARCHAR},
+		parameter_code = #{parameterCode,jdbcType=VARCHAR},
+		parameter_type = #{parameterType,jdbcType=CHAR},
+		parameter_value = #{parameterValue,jdbcType=VARCHAR},
+		parameter_default_value =
+		#{parameterDefaultValue,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR},
+		creator_id = #{creatorId,jdbcType=INTEGER},
+		updater_id =
+		#{updaterId,jdbcType=INTEGER},
+    update_date =
+    #{updateDate,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+		and system_id = #{systemId,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<!-- 
+    /***********************************************************************
+    * DON'T Modify the codes above unless you know what you are doing!!!  *
+    * Put your own sql beblow.                                            *
+    ***********************************************************************/
+   -->
+
+
+	<resultMap type="com.jesse.dpp.rcp.vo.SysParameterVo" id="ResultMapSysParameterVo" extends="ResultMapWithBLOBs">
+		<association property="account" javaType="com.jesse.dpp.rcp.po.Account">
+			<result property="loginName" column="creator" />
+		</association>
+		<association property="upAccount" javaType="com.jesse.dpp.rcp.po.Account">
+			<result property="loginName" column="updater" />
+		</association>
+	</resultMap>
+
+	<select id="selectSysParameterListByPagination" resultMap="ResultMapSysParameterVo" parameterType="java.util.Map">
+		SELECT
+			tsp.id,
+			tsp.system_id,
+			tsp.parameter_code,
+			tsp.parameter_name,
+			tsp.parameter_type,
+			tsp.parameter_value,
+			tsp.parameter_default_value,
+			tsp.description,
+			tsp.status,
+			tsp.update_date,
+			tsp.updater_id,
+			tsa.login_name AS creator,
+			tup.login_name AS updater
+		FROM
+		t_sys_parameter tsp
+		JOIN t_sys_account tsa ON (tsp.creator_id = tsa.id)
+		JOIN t_sys_account tup ON (tsp.updater_id = tup.id)
+		WHERE tsp.system_id = #{systemId}
+	</select>
+	
+	<select id="selectSysParameterByCode" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sys_parameter
+    where parameter_code = #{parameterCode} and system_id = #{systemId} 
+  </select>
+  
+  <select id="selectListBySystemId" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sys_parameter
+    where system_id = #{systemId}
+  </select>
+  
+</mapper>

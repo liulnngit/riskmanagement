@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo">
+  
+  <context:component-scan base-package="com.jesse.*" />
+
+  <bean id="placeholderConfigCommons"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="order" value="1"/>
+    <property name="ignoreUnresolvablePlaceholders" value="true"></property>
+    <property name="locations">
+      <list>
+        <value>db_risk.properties</value>
+        <value>log4j.properties</value>
+      </list>
+    </property>
+  </bean>
+  
+	<!--encriyp type-->
+	<bean id="encryptTransaction" class="com.jesse.commons.encrypt.EncryptWithRSA">
+	</bean>
+	
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="3000" />
+		<property name="logSlowSql" value="true" />
+	</bean>
+	
+	<!-- 数据源 -->
+  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+    init-method="init" destroy-method="close">
+    <property name="driverClassName" value="${default.jdbc.driverClassName}" />
+    <property name="url" value="${default.jdbc.jdbcUrl}" />
+    <property name="username" value="${default.jdbc.username}" />
+    <property name="connectProperties">
+      <props>
+        <prop key="password">${default.jdbc.password}</prop>
+        <prop key="oracle.net.CONNECT_TIMEOUT">10000</prop>
+        <prop key="oracle.net.READ_TIMEOUT">25000</prop>
+        <prop key="oracle.jdbc.ReadTimeout">25000</prop>
+      </props>
+    </property>
+    <property name="passwordCallback">
+      <bean class="com.jesse.commons.callback.DBPasswordCallback" >
+        <property name="encrypt">
+          <ref bean="encryptTransaction" />
+        </property>
+      </bean>
+    </property>
+    <property name="initialSize" value="${default.pool.initialSize}" />
+    <property name="minIdle" value="${default.pool.minIdle}" />
+    <property name="maxActive" value="${default.pool.maxActive}" />
+    <property name="maxWait" value="60000" />
+    <property name="timeBetweenEvictionRunsMillis" value="180000" />
+    <property name="minEvictableIdleTimeMillis" value="600000" />
+    <property name="validationQuery" value="SELECT 1" />
+    <property name="testWhileIdle" value="${default.pool.testWhileIdle}" />
+    <property name="testOnBorrow" value="${default.pool.testOnBorrow}" />
+    <property name="testOnReturn" value="false" />
+    <property name="poolPreparedStatements" value="true" />
+    <property name="maxPoolPreparedStatementPerConnectionSize"
+      value="${default.pool.maxPoolPreparedStatement}" />
+    <property name="filters" value="log4j" />
+    <property name="proxyFilters">
+      <list>
+        <ref bean="stat-filter" />
+      </list>
+    </property>
+  </bean>
+  
+  <!-- 配置mapper映射文件 -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!--dataSource属性指定要用到的连接池 -->
+    <property name="dataSource" ref="dataSource" />
+    <!--configLocation属性指定mybatis的核心配置文件 -->
+    <property name="configLocation" value="classpath:mybatis-config.xml" />
+    <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+  </bean>
+  
+  <!-- 自动扫描所有的Mapper接口与文件关联到数据源 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.jesse.dpp.rcp.dao"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+  
+  <!-- 配置事物 -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="insert*" propagation="REQUIRED"
+        rollback-for=" com.jesse.dpp.rcp.utils.exception.BaseRuntimeException" />
+      <tx:method name="add*" propagation="REQUIRED"
+        rollback-for=" com.jesse.dpp.rcp.utils.exception.BaseRuntimeException" />
+      <tx:method name="create*" propagation="REQUIRED"
+        rollback-for=" com.jesse.dpp.rcp.utils.exception.BaseRuntimeException" />
+      <tx:method name="update*" propagation="REQUIRED"
+        rollback-for=" com.jesse.dpp.rcp.utils.exception.BaseRuntimeException" />
+      <tx:method name="delete*" propagation="REQUIRED"
+			rollback-for=" com.jesse.dpp.rcp.utils.exception.BaseRuntimeException" />  
+      <tx:method name="*" propagation="SUPPORTS" read-only="true" />
+    </tx:attributes>
+  </tx:advice>
+
+  <aop:config>
+    <aop:pointcut id="servicePointcut"
+      expression="execution(* com.jesse.dpp.rcp.service.*.*(..))" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointcut" />
+  </aop:config>
+</beans>

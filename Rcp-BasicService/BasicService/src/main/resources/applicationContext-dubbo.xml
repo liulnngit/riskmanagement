@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  http://code.alibabatech.com/schema/dubbo
+  http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+  <!-- 提供方应用信息，用于计算依赖关系 -->
+  <dubbo:application name="basic_provider" />
+
+  <!-- 使用zookeeper注册中心暴露服务地址 -->
+  <!-- <dubbo:registry address="zookeeper://192.168.46.160:2181?backup=192.168.46.161:2181,192.168.46.162:2181" file="conf/dubbo-registry/basic-dubbo-registry.properties"/> -->
+  <dubbo:registry address="zookeeper://localhost:2181" file="conf/dubbo-registry/basic-dubbo-registry.properties"/>
+
+  <!-- 用dubbo协议在20880端口暴露服务 -->
+  <dubbo:protocol name="dubbo" port="20881" />
+
+  <!-- 声明需要暴露的服务接口 -->
+  <dubbo:service interface="com.jesse.dpp.rcp.service.IRoleService" ref="iRoleService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.IAccountService" ref="iAccountService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.IMenuService" ref="iMenuService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.IPermissionService" ref="iPermissionService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.ISystemTypeService" ref="iSystemTypeService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.IRoleMenuService" ref="iRoleMenuService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.IAccountRoleService" ref="iAccountRoleService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.INoticeService" ref="iNoticeService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.IResetPasswordService" ref="iResetPasswordService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.IActiveAccountService" ref="iActiveAccountService" version="1.0.0"/>
+  <dubbo:service interface="com.jesse.dpp.rcp.service.ISysParameterService" ref="iSysParameterService" version="1.0.0"/>
+
+  <!-- 具体的实现bean -->
+  <bean id="iRoleService" class="com.jesse.dpp.rcp.service.impl.RoleServiceImpl" />
+  <bean id="iAccountService" class="com.jesse.dpp.rcp.service.impl.AccountServiceImpl" />
+  <bean id="iMenuService" class="com.jesse.dpp.rcp.service.impl.MenuServiceImpl" />
+  <bean id="iPermissionService" class="com.jesse.dpp.rcp.service.impl.PermissionServiceImpl" />
+  <bean id="iSystemTypeService" class="com.jesse.dpp.rcp.service.impl.SystemTypeServiceImpl" />
+  <bean id="iRoleMenuService" class="com.jesse.dpp.rcp.service.impl.RoleMenuServiceImpl" />
+  <bean id="iAccountRoleService" class="com.jesse.dpp.rcp.service.impl.AccountRoleServiceImpl" />
+  <bean id="iNoticeService" class="com.jesse.dpp.rcp.service.impl.NoticeServiceImpl"/>
+  <bean id="iResetPasswordService" class="com.jesse.dpp.rcp.service.impl.ResetPasswordServiceImpl"/>
+  <bean id="iActiveAccountService" class="com.jesse.dpp.rcp.service.impl.ActiveAccountServiceImpl"/>
+  <bean id="iSysParameterService" class="com.jesse.dpp.rcp.service.impl.SysParameterServiceImpl"/>
+
+</beans>

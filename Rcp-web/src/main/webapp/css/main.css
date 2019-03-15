@@ -1,0 +1,390 @@
+		html, body {
+    height: 100%;
+    width: 100%;
+    background:url(../images/bg_echarts.png) no-repeat;
+    background-size:100% 100%;
+    /* background: -moz-linear-gradient(top, #101846 0%, #101846 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #101846),
+ color-stop(100%, #101846));
+    background: -webkit-linear-gradient(top, #101846 0%, #101846 100%);
+    background: -o-linear-gradient(top, #101846 0%, #101846 100%);
+    background: -ms-linear-gradient(top, #101846 0%, #101846 100%);
+    background: linear-gradient(to bottom, #101846 0%, #101846 100%); */
+}
+		body,div{ margin:0; padding:0;}
+		.wrap{overflow: hidden;}
+		#main6::after,#main3::after,.content_left_3::after,#column::after,#column2::after,#spot::after,#spot2::after,.dataBox::after,.contrastBox::after,#map::after,#pieBox::after,#spot::after,#spot2::after,.dataBox::after,.contrastBox::after,#map::after{
+			content: '交易趋势图';
+			color: #fff;
+			font-size: 1.2em;
+			line-height: 65px;
+			text-align: center;
+			display: inline-block;
+			width: 100%;
+			background: url('../images/pinlv.png') no-repeat center;
+			position: absolute;
+			z-index: 999;
+		}
+		/*四个角*/
+		.kuang {
+			width: 10%;
+			height: 20%;
+		}
+		
+		.kuang img {
+			width: 100%;
+			height: 100%;
+		}
+		
+		#tl {
+			position: absolute;
+			top: 3%;
+			left: 2%;
+			z-index: 999;
+		}
+		
+		#tr {
+			position: absolute;
+			top: 3%;
+			right: 2%;
+			z-index: 999;
+		}
+		
+		#bl {
+			position: absolute;
+			top: 78%;
+			left: 2%;
+			z-index: 999;
+		}
+		
+		#br {
+			position: absolute;
+			top: 78%;
+			right: 2%;
+			z-index: 999;
+		}
+		
+		
+.m4{ border:1px solid #119eee;border-radius: 10px;margin: 10px 0;margin-right: 3%;box-shadow: 0px 3px 0px #1055a5 inset;width:30%;float:left;position: relative;top:25%;min-height:118px;}
+.m4 h4{color: #FFF;font-size: 12px;text-align: center;padding: 17px 2px;}
+.m4 p{color:#fdfd00;text-align: center;font-weight: bold;padding-bottom: 13px;font-size:16px;}
+.m4 p span{color:#e1ed67;font-size:16px;}
+.m4 s{display: block;position: absolute;right: -15px;bottom: -15px;width: 30px;height: 30px;border-left: 1px solid #119eee;background-color: #09182b;transform: rotate(45deg);}
+
+		/*柱形图*/
+		#columnBox {
+			width: 26%;
+			height: 25%;
+			position: absolute;
+			top: 15%;
+			left: 4%;
+			z-index: 999;
+		}
+		
+		#column::after {
+			content: attr(data-attr);
+			top: -25%;
+		}
+		
+		#column2::after{
+			content: '数据监控';
+			top: 100%;
+			left:-5%;
+		}
+		.columnType,.columnType2{
+			float: right;
+			position: absolute;
+			top: 18%;
+			right: 0;
+		}
+		.columnType2{
+			top: 118%;	
+		}
+		
+		.columnType img,.columnType2 img{
+			width: 80%;
+			height: 80%;
+		}
+		
+		/*饼图*/
+		.content_right_2{
+			position: absolute;
+			top: 45%;
+			width: 30%;
+			height: 25%;
+			right: 4%;
+			z-index: 999;
+		}
+		.content_right_2 #main6{
+			float:left;
+		}
+		.content_right_2 #main3{
+			float:right;
+		}
+		#pieBox {
+			position: absolute;
+			top: 17%;
+			width: 30%;
+			height: 25%;
+			right: 4%;
+			z-index: 999;
+		}
+		.content_right_2 #main6::after{
+			content: '风险级别分布图';
+			top: -20%;
+			left:-25%;
+			
+		}
+		.content_right_2 #main3::after {
+			content: '支付类型分布图';
+			top: -20%;
+			left:25%;
+		}
+		#pieBox::after {
+			content: '风险事件趋势图';
+			top: -30%;
+			margin-left: -100%;
+		}
+		.pieType{
+			width: 70%;
+			position: absolute;
+			bottom: 5%;
+			right: 0;
+		}
+		.pieType img{
+			width: 100%;
+			height: 100%;	
+		}
+		
+		#pieBox #pie {
+			float: left;
+			height: 90%;
+		}
+		
+		#pieBox #pie2 {
+			float: right;
+			height: 90%;
+		}
+		/*点状图*/
+		#spotBox {
+			position: absolute;
+			width: 35%;
+			height: 25%;
+			bottom: 5%;
+			left: 47%;
+			margin-left: -17.5%;
+			bottom: 0;
+		}
+		
+		#spotBox #spot {
+			float: left;
+			position: relative;
+		}
+		
+		#spotBox #spot2 {
+			float: right;
+			position: relative;
+		}
+		
+		#map::after{
+			content: '监控中心';
+			
+		}
+		/*客户数据*/
+		.dataBox {
+			width: 30%;
+			height: 180px;
+			position: absolute;
+			bottom: 8%;
+			right: 4%;
+			color: #1e9ee9;
+		}
+		.dataBox::after {
+			content: '风控监控数据';
+			top: -35%;
+		}
+		
+		.product-main{
+			height: 107%;
+			overflow: hidden;
+		}
+		.recruit {
+			width: 100%;
+			border-collapse: collapse;
+			border-spacing: 0;
+			font-size: 14px;
+			text-align: center;
+		}
+		
+		.recruit thead {
+			background-color: #0c2a3e;
+			height: 30px;
+			line-height: 30px;
+			
+		}
+		
+		.recruit tbody {
+			height: 30px;
+			line-height: 30px;
+		}
+		
+		.recruit tbody tr {
+			height: 25px;
+			overflow: hidden;
+			background-color: #0a2732;
+		}
+		
+		.recruit tbody tr:nth-child(even) {
+			background-color: #0a3849;
+		}
+		/*数据对比*/
+		
+		
+		.contrast{
+			width: 23%;
+			overflow: hidden;
+			z-index: 999;
+			position: absolute;
+			top: 18%;
+			left: 5%;
+		}
+		.contrastBox::after{
+			content: '交易趋势图';
+			top: 9%;
+			left: -33.5%;
+		}
+		.contrast div{
+			width: 43%;
+			height: 130px;
+			float: left;
+			text-align: center;
+			border: 4px solid #0089B0;
+			border-radius: 10px;
+			margin-right: 10px;
+		}
+		.contrast .white{
+			color: #fff;
+		}
+		.contrast .yellow{
+			color: yellow;
+			font-size: 20px;
+		}
+		/*地图样式*/
+		#map_content {
+			height:60%;
+			width: 100%;
+			position: absolute;
+    		top: 28%;
+    		left:-4%;
+		}
+		#map::after {
+			background: url('../images/top.png') no-repeat center;
+			background-size: 1100px 50px;
+			color: rgba(0,0,0,0);
+			top: -46%;
+			left:4%;
+			font-size: 18px;
+		}
+		/*地图中间的时间*/
+		.mapContent{
+			width: 570px;
+			height: 150px;
+			text-align: center;
+			z-index: 999;
+			position: absolute;
+			top: 3%;
+			left: 46%;
+			margin-left: -216px;
+		}
+		.mapContent .time{
+			color: #fff;
+			font-size: 27px;
+		}
+		.mapContent .money{
+			color: yellow;
+			font-size: 35px;
+			line-height: 35px;
+		}
+		.mapContent .money .rmb{
+			color: #fff;
+		}
+ .content_left_3{
+ 	width: 23%;
+    height: 180px;
+    position: absolute;
+    bottom: 8%;
+    left: 4%;
+    color: #1e9ee9;
+ }
+ .table tr:nth-child(2n) td{ background-color:#0a2632!important;color:#109fef;}
+.table tr:nth-child(2n+1) td{background-color:#0a3848!important;color:#109fef;}
+.table tr td span{color:#109fef;}
+.table tr td {border:none!important;}
+#demo,#rdemo,#cdemo{overflow: hidden; height: 180px;}
+#demo,#rdemo,#cdemo{overflow: hidden; height: 180px;}
+.content_left_3::after{content: '大额订单监控';
+    top: -35%;}
+    
+    #spotBox ul{ width:50%;  margin:0 auto;}
+#spotBox ul li{  margin:10px;list-style-type: none;float: left;color:#fff;width: 20%;margin-bottom: 20px;text-align: center;position: relative;}
+#spotBox ul li span{width:20px; height:20px; background:red; display: inline-block;margin-right: 10px;border-radius: 50%;position: absolute;left:-20px;left:0;}
+@media (min-width:760px){#spotBox ul{ width:90%}}
+@media (min-width:1000px){#spotBox ul{ width:80%}}
+
+.t_num i,.t_num1 i,.t_num2 i {
+width: 15px;
+height: 20px;
+display: inline-block;
+background: url(../images/number.png) no-repeat;
+background-position: 0 0;
+text-indent: -999em;
+}
+
+#container {
+  margin-top:40px;
+  min-width: 600px;
+}
+
+.flip {
+  margin: 0 auto;
+  
+  height: 100px;
+  color: yellow;
+}
+
+
+
+.price-div > div,
+.total-price > div {
+  float: left;
+  text-align: center;
+}
+
+.price-icon {
+  background: #312d2d;
+  width: 34px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 36px;
+  font-weight: bold;
+  float: left;
+  margin-right: 2px;
+}
+
+.price-div .number {
+  background: #312d2d;
+  width: 40px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 60px;
+  font-weight: bold;
+  overflow: hidden;
+  margin-right: 1px;
+}
+
+.price-div .sign {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 68px;
+  height: 48px;
+}
